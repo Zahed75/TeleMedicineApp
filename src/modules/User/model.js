@@ -31,6 +31,7 @@ const UserSchema=new mongoose.Schema({
         max:[15,'Your nid must be at least 15 characters']
       },
 
+    
       password: {
         type: String,
         max: [6, 'Your Password must be in 6 digits'],

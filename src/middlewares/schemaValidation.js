@@ -1,3 +1,4 @@
+
 const handleValidation = (validate) => (req, res, next) => {
     const result = validate(req.body, req.user);
     const isValid = result.error == null;

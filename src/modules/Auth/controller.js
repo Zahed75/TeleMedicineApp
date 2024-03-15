@@ -11,7 +11,7 @@ const {
 
 }=require('../../config/constants');
 const authService = require('./service');
-const { adminValidate } = require('./request');
+const  adminValidate  = require('./request');
 const roleMiddleware = require('../../middlewares/roleMiddleware');
 const authMiddleware = require('../../middlewares/authMiddleware');
 const { asyncHandler } = require('../../utility/common');
@@ -194,7 +194,7 @@ const getAllUsersHandler = async (req, res) => {
 
 
 
-router.post('/admin/register', handleValidation(adminValidate), userSignup);
+router.post('/admin/register', userSignup);
 router.post('/user/signin', userSignin);
 router.get('/logout', logoutHandler);
 router.get("/getAllUsers",getAllUsersHandler);

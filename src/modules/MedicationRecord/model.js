@@ -1,9 +1,10 @@
-const { Mongoose } = require("mongoose");
+const mongoose = require("mongoose");
 
-const MedicationSchema = new Mongoose.Schema({
-  name: {
+const MedicationSchema = new mongoose.Schema({
+  medicationName: {
     type: String,
-    required: true,
+    max: [30, "Medication Name must be at most 30 characters"],
+    required: [true, "Medication Name is required"],
   },
   morning: {
     type: Boolean,
@@ -39,5 +40,4 @@ const MedicationSchema = new Mongoose.Schema({
   },
 });
 
-const Medication = Mongoose.model("Medication", MedicationSchema);
-module.exports = Mongoose.model("Medication", MedicationSchema);
+module.exports = mongoose.model("MedicationRecord", MedicationSchema);

@@ -1,46 +1,34 @@
+const MedicationRecord = require("./model");
+
 const addMedicationRecord = async (data) => {
-  const medicationRecord = await medicationRecord.create(data);
-  return medicationRecord;
-};
-
-const updateMedicationRecord = async (medicationRecordId, updatedValue) => {
-  const updatedMedicationRecord = await medicationRecord.findByIdAndUpdate(
-    {
-      _id: medicationRecordId,
-    },
-    updatedValue,
-    {
-      new: true,
-    }
-  );
-
-  if (!updatedMedicationRecord) {
-    throw new NotFound("MedicationRecord not found");
+  try {
+    const medication = await MedicationRecord.create(data);
+    return medication;
+  } catch (error) {
+    throw error;
   }
-
-  return updatedMedicationRecord;
 };
 
-const getAllMedicationRecords = (limit, skip) => {
-  return medicationRecord.find().limit(limit).skip(skip);
+const getAllMedicationRecords = async () => {
+  try {
+    const medications = await MedicationRecord.find({ isDeleted: false });
+    return medications;
+  } catch (error) {
+    throw error;
+  }
 };
 
 const getMedicationRecordById = async (id) => {
-  const medicationRecord = await medicationRecord.findById({ _id: id });
-  return medicationRecord;
-};
-
-const deleteMedicationRecordById = async (id) => {
-  const medicationRecord = await medicationRecord.findByIdAndDelete({
-    _id: id,
-  });
-  return medicationRecord;
+  try {
+    const medication = await MedicationRecord.findById(id);
+    return medication;
+  } catch (error) {
+    throw error;
+  }
 };
 
 module.exports = {
   addMedicationRecord,
-  updateMedicationRecord,
   getAllMedicationRecords,
   getMedicationRecordById,
-  deleteMedicationRecordById,
 };

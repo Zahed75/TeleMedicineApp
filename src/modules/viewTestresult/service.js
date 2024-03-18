@@ -1,4 +1,4 @@
-// const viewTestresultModel = require('./model');
+const viewTestresultModel = require('../viewTestresult/model');
 
 const addTestResult = async (data) => {
   const testResult = new viewTestresultModel(data);

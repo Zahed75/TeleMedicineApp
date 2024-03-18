@@ -1,4 +1,4 @@
-const { string, date } = require('joi');
+
 const mongoose = require('mongoose');
 
 const viewTestresult =new mongoose.Schema({
@@ -18,14 +18,14 @@ const viewTestresult =new mongoose.Schema({
         enum:['done','pending','block']
     },
     result:{
-        type:string,
+        type:String,
         enum:['positive','negeative']
     },
     date:{
-        type:date,
+        type:Date,
 
     }
 
 })
-const viewTestresultModel = mongoose.model('user',viewTestresult);
+const viewTestresultModel = mongoose.model('ViewTestResult',viewTestresult);
 module.exports=viewTestresultModel

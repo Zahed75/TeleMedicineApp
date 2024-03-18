@@ -6,7 +6,7 @@ const addTestResultSchema = Joi.object({
   userId: Joi.string().required(),
   name: Joi.string().required(),
   status: Joi.string().valid('done', 'pending', 'block').required(),
-  result: Joi.string().valid('positive', 'negative').required(),
+  result: Joi.string().valid('positive', 'negeative').required(),
   date: Joi.date().required(),
 });
 

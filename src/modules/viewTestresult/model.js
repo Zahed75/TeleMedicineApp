@@ -19,10 +19,10 @@ const viewTestresult =new mongoose.Schema({
     },
     result:{
         type:String,
-        enum:['positive','negeative']
+        enum:['positive','negative']
     },
     date:{
-        type:Date,
+        type:String
 
     }
 

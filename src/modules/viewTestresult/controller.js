@@ -3,11 +3,11 @@ const TestResultService = require('./service');
 const Joi = require('joi'); // For validation
 
 const addTestResultSchema = Joi.object({
-  userId: Joi.string().required(),
-  name: Joi.string().required(),
-  status: Joi.string().valid('done', 'pending', 'block').required(),
-  result: Joi.string().valid('positive', 'negative').required(),
-  date: Joi.date().required(),
+  userId: Joi.string(),
+  name: Joi.string(),
+  status: Joi.string().valid('done', 'pending', 'block'),
+  result: Joi.string().valid('positive', 'negative'),
+  date: Joi.date(),
 });
 
 const addTestResult = async (req, res, next) => {
@@ -48,6 +48,7 @@ const getAllTestResults = async (req, res, next) => {
       req.query.skip
     );
     res.status(200).json(testResults);
+
   } catch (error) {
     next(error);
   }
@@ -57,6 +58,7 @@ const getTestResultById = async (req, res, next) => {
   try {
     const testResult = await TestResultService.getTestResultById(req.params.id);
     res.status(200).json(testResult);
+
   } catch (error) {
     next(error);
   }
@@ -72,10 +74,10 @@ const deleteTestResultById = async (req, res, next) => {
 };
 
 router.post('/addtestresult', addTestResult);
-router.put('/:testResultId', updateTestResult);
+router.put('/testResultId/:id', updateTestResult);
 router.get('/alltestresults', getAllTestResults);
-router.get('/:testResultId', getTestResultById);
-router.delete('/:testResultId', deleteTestResultById);
+router.get('/getTestResultById/:id', getTestResultById);
+router.delete('/testResultId/:id', deleteTestResultById);
 
 module.exports = router;
 

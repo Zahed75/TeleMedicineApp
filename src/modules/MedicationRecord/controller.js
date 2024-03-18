@@ -1,64 +1,45 @@
-const router = require('../Auth/controller');
-const MedicationService = require('./service');
+const express = require("express");
+const router = express.Router();
+const { addMedicationRecord, getAllMedicationRecords, getMedicationRecordById } = require("./service");
 
-
-const addMedication = async (req, res, next) => {
+const createMedicationRecord = async (req, res) => {
   try {
-    const medication = await MedicationService.addMedication(req.body);
-    res.status(201).json(medication);
+    const medication = await addMedicationRecord(req.body);
+    res.status(201).json({ success: true, data: medication });
   } catch (error) {
-    next(error);
+    console.error("Error creating medication record:", error);
+    res.status(500).json({ success: false, error: "Internal server error" });
   }
 };
 
-const updateMedication = async (req, res, next) => {
+const fetchAllMedicationRecords = async (req, res) => { // Renamed from getAllMedicationRecords to avoid naming conflict
   try {
-    const medication = await MedicationService.updateMedication(
-      req.params.medicationId,
-      req.body
-    );
-    res.status(200).json(medication);
+    const medications = await getAllMedicationRecords(); // Corrected function call
+    res.status(200).json({ success: true, data: medications, count: medications.length });
   } catch (error) {
-    next(error);
+    console.error("Error getting all medication records:", error);
+    res.status(500).json({ success: false, error: "Internal server error" });
   }
 };
 
-const getAllMedications = async (req, res, next) => {
+const fetchMedicationRecordById = async (req, res) => { // Renamed from getMedicationRecordById to avoid naming conflict
   try {
-    const medications = await MedicationService.getAllMedications(
-      req.query.limit,
-      req.query.skip
-    );
-    res.status(200).json(medications);
+    const medicationId = req.params.id; // Corrected to use 'id' instead of '_id'
+    const medication = await getMedicationRecordById(medicationId); // Corrected function call
+
+    if (!medication) {
+      return res.status(404).json({ success: false, error: "Medication record not found" });
+    }
+
+    res.status(200).json({ success: true, data: medication }); // Corrected status code to 200
   } catch (error) {
-    next(error);
+    console.error("Error getting medication record by id:", error);
+    res.status(500).json({ success: false, error: "Internal server error" });
   }
 };
 
-
-const getMedicationById = async (req, res, next) => {
-  try {
-    const medication = await MedicationService.getMedicationById(req.params.id);
-    res.status(200).json(medication);
-  } catch (error) {
-    next(error);
-  }
-};
-
-const deleteMedicationById = async (req, res, next) => {
-  try {
-    const medication = await MedicationService.deleteMedicationById(req.params.id);
-    res.status(200).json(medication);
-  } catch (error) {
-    next(error);
-  }
-};
- 
-
-router.post('/addmedication', addMedication);
-router.put('/:medicationId', updateMedication);
-router.get('/allmedication', getAllMedications);
-router.get('/:medicationId', getMedicationById);
-router.delete('/:medicationId', deleteMedicationById);
+router.post("/createMedicationRecord", createMedicationRecord);
+router.get("/getAllMedicationRecords", fetchAllMedicationRecords); // Changed function name to avoid conflict
+router.get("/getMedicationRecordById/:id", fetchMedicationRecordById); // Changed function name to avoid conflict
 
 module.exports = router;

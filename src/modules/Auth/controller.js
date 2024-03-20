@@ -9,7 +9,7 @@ const {
  PATIETN,
  SUPER_ADMIN
 
-}=require('../../config/constants');
+}=require('../../config/constant');
 const authService = require('./service');
 const { adminValidate } = require('./request');
 const roleMiddleware = require('../../middlewares/roleMiddleware');
@@ -194,7 +194,7 @@ const getAllUsersHandler = async (req, res) => {
 
 
 
-router.post('/admin/register', handleValidation(adminValidate), userSignup);
+router.post('/admin/register',  userSignup);
 router.post('/user/signin', userSignin);
 router.get('/logout', logoutHandler);
 router.get("/getAllUsers",getAllUsersHandler);

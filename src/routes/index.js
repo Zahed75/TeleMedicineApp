@@ -12,8 +12,8 @@ const scheduleRoute = require("../modules/Schedule/controller");
 
 // Root End Point
 router.use('/auth', authVerifyMiddleware, authRoute);
-router.use('/viewTestresult', authVerifyMiddleware, viewTestresultroute);
-router.use("/medication", authVerifyMiddleware, medicationRoute);
-router.use("/schedule", authVerifyMiddleware, scheduleRoute);
+router.use('/viewTestresult', viewTestresultroute);
+router.use("/medication", medicationRoute);
+router.use("/schedule", scheduleRoute);
 
 module.exports = router;

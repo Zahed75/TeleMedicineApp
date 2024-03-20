@@ -41,7 +41,3 @@ const sendEmailUtility = async (email, otp) => {
 };
 
 module.exports = sendEmailUtility;
-
-
-
-

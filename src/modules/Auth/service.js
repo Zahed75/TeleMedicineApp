@@ -302,6 +302,9 @@ const updateUserProfileById = async (id, value) => {
 
 
 //get all Users
+
+
+// Service
 const getAllUsers = async () => {
   // Populate the profilePicture field
   const allUsers = await User.find().select('-password').populate('profilePicture', 'url');
@@ -321,4 +324,6 @@ module.exports = {
   getUserInfoById,
   updateUserProfileById,
   getAllUsers
+  
+
 };

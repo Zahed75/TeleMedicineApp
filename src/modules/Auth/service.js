@@ -9,10 +9,10 @@ const {
   NoContent,
 } = require('../../utility/errors');
 const { generateOTP } = require('../../utility/common');
-const { SendEmailUtility } = require('../../utility/email');
+const  SendEmailUtility  = require('../../utility/email');
 const createToken = require('../../utility/createToken');
 const bcrypt = require('bcryptjs');
-
+// const handleValidation = require('../../middlewares/schemaValidation');;
 
 
 
@@ -45,7 +45,11 @@ const registerUser = async (userData) => {
       isVerified: newUSer.isVerified,
       isActive: newUSer.isActive,
       role: newUSer.role,
-      profilePicture: newUSer.profilePicture
+      profilePicture: newUSer.profilePicture,
+      dob:newUSer.dob,
+      gender: newUSer.gender,
+      nidNo: newUSer.nidNo,
+
     };
   }
 
@@ -53,6 +57,8 @@ const registerUser = async (userData) => {
 
   return isUser;
 };
+
+
 
 
 

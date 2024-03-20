@@ -38,35 +38,38 @@ const UserSchema = new mongoose.Schema(
       type: String,
     },
 
-    otp: {
-      type: Number,
-    },
-    emailChangeOTP: {
-      type: Number,
-    },
-    changedEmail: {
-      type: String,
-    },
-    isActive: {
-      type: Boolean,
-      default: false,
-    },
-    role: {
-      type: String,
-      enum: ["AD", "DC", "PT", "SA"],
-      require: [true, "Role must be selected"],
-    },
-    isVerified: {
-      type: Boolean,
-      default: false,
-    },
-    isDeleted: {
-      type: Boolean,
-      default: false,
-    },
-    refreshToken: [String],
-  },
-  { timestamps: true }
+      otp: {
+        type: Number,
+      },
+      emailChangeOTP: {
+        type: Number,
+      },
+      changedEmail: {
+        type: String,
+      },
+      isActive: {
+        type: Boolean,
+        default: false,
+      },
+      role: {
+        type: String,
+        //  BU -> Basic User
+        // VIP -> CELERITY VIP
+        // CL -> CHRUCH_LEADER
+        // CP -> CHURCH_PAGE
+        //SA -> Super Admin
+        enum: ['AM', 'DC', 'PT','SA'],
+        require: [true, 'Role must be selected'],
+      },
+
+      isVerified: {
+        type: Boolean,
+        default: false,
+      },
+      refreshToken: [String],
+
+      
+},{ timestamps: true }
 );
 
 // Password Hash Function using Bycryptjs

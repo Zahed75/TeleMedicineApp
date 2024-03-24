@@ -3,7 +3,7 @@ const User=require('../modules/User/model');
 //emails
 
 const createToken = require('./createToken');
-const { DOCTOR,PATIENTS,ADMIN,SUPER_ADMIN } = require('../config/constant');
+const { DOCTOR,PATIENTS,ADMIN,SUPER_ADMIN } = require('../config/constants');
 
 
 // Create a nodemailer transporter
@@ -20,7 +20,7 @@ const transporter = nodemailer.createTransport({
 });
 
 // Function to send email containing OTP
-const sendEmailUtility = async (email, otp) => {
+const SendEmailUtility = async (email, otp) => {
   // Email content
   const mailOptions = {
     from: 'TeleApp <Taninlondon@gmail.com>', // Replace with your name and Gmail email
@@ -40,4 +40,6 @@ const sendEmailUtility = async (email, otp) => {
   }
 };
 
-module.exports = sendEmailUtility;
+
+
+module.exports = SendEmailUtility;

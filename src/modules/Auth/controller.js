@@ -1,26 +1,24 @@
 const express = require('express');
 const router = express.Router();
-
+const { asyncHandler } = require('../../utility/common');
 const handleValidation = require('../../middlewares/schemaValidation');
-
+const { adminValidate } = require('./request');
 const {
   ADMIN,
   DOCTOR,
   PATIENTS,
   SUPER_ADMIN
 
-}=require('../../config/constant');
+}=require('../../config/constants');
 const authService = require('./service');
-const { adminValidate } = require('./request');
+
 const roleMiddleware = require('../../middlewares/roleMiddleware');
 const authMiddleware = require('../../middlewares/authMiddleware');
-const { asyncHandler } = require('../../utility/common');
-
 
 
 const userSignup = async (req, res, next) => {
   try {
-    const user = await registerUser(req.body);
+    const user = await authService.registerUser(req.body);
 
     res.status(201).json({
       email: user.email,
@@ -28,10 +26,9 @@ const userSignup = async (req, res, next) => {
       message: 'OTP is sent to your email. Please Check your email',
     });
   } catch (err) {
-    next(err); // Pass error to error handling middleware
+    next(err); // Pass the error to the error handling middleware
   }
 };
-
 
 
 
@@ -217,17 +214,17 @@ const deleteUserHandler=asyncHandler(async (req, res, next) => {
 })
 
 
-router.post('/admin/register', handleValidation(adminValidate), userSignup);
 
+
+
+router.post('/admin/register', userSignup);
+router.post('/otp/verify', verifyOTP);
 router.post('/user/signin', userSignin);
 router.get('/logout', logoutHandler);
-router.get("/getAllUsers",getAllUsersHandler);
-router.post('/otp/verify', verifyOTP);
+
 router.post('/otp/resend', resendOTP);
 router.post('/otp/expire', expireOTP);
 router.get('/refresh', refreshTokenHandler);
-router.get('/:userId',getUserInfoByIdHandler);
-router.post('/updateUserProfiler/:userId',updateUserProfileHandler);
-router.delete('/:id',deleteUserHandler);
+
 
 module.exports = router;

@@ -9,24 +9,24 @@ const {
   NoContent,
 } = require('../../utility/errors');
 const { generateOTP } = require('../../utility/common');
-const { SendEmailUtility } = require('../../utility/email');
+
 const createToken = require('../../utility/createToken');
 const bcrypt = require('bcryptjs');
 
 
 
+const sendEmailUtility = require('../../utility/email');
 
 
-// Admin account register
 const registerUser = async (userData) => {
   const { email, password } = userData;
 
   let isUser = await User.findOne({ email }).select(
-    "email isVerified isActive role"
+    'email isVerified isActive role'
   );
 
   if (isUser && isUser.isVerified) {
-    throw new BadRequest("You already have an account with this email");
+    throw new BadRequest('You already have an account with this email');
   }
 
   const otp = generateOTP();
@@ -37,21 +37,24 @@ const registerUser = async (userData) => {
     isUser.password = password;
     await isUser.save();
   } else {
-    const newUSer = await User.create({ ...userData, otp });
+    const newUser = await User.create({ ...userData, otp });
 
     isUser = {
-      email: newUSer.email,
-      isVerified: newUSer.isVerified,
-      isActive: newUSer.isActive,
-      role: newUSer.role,
-      profilePicture: newUSer.profilePicture,
+      email: newUser.email,
+      isVerified: newUser.isVerified,
+      isActive: newUser.isActive,
+      role: newUser.role,
     };
   }
 
-  SendEmailUtility(email, emailBody, "OTP");
+  SendEmailUtility(email, emailBody, 'OTP');
 
   return isUser;
 };
+
+
+
+
 
 
 
@@ -123,6 +126,9 @@ const otpVerification = async (data) => {
 
   return user;
 };
+
+
+
 
 // Resend OTP
 const resendOtp = async (data) => {

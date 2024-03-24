@@ -15,7 +15,7 @@ const bcrypt = require('bcryptjs');
 
 
 
-const sendEmailUtility = require('../../utility/email');
+const SendEmailUtility = require('../../utility/email');
 
 
 const registerUser = async (userData) => {

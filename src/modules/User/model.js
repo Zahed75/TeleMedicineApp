@@ -62,7 +62,7 @@ const UserSchema=new mongoose.Schema({
         // CL -> CHRUCH_LEADER
         // CP -> CHURCH_PAGE
         //SA -> Super Admin
-        enum: ['BU', 'VIP', 'CL', 'CP','SA'],
+        enum: ['AM', 'DC', 'PT','SA'],
         require: [true, 'Role must be selected'],
       },
 

@@ -12,7 +12,7 @@ CELEBRITY_VIP,
 CHRUCH_LEADER,
 CHRUCH_PAGE,
 SUPER_ADMIN,
- } = require('../../config/constants');
+ } = require('../../config/constant');
 const { generateOTP } = require('../../utility/common');
 const { SendEmailUtility } = require('../../utility/email');
 const { all } = require('axios');

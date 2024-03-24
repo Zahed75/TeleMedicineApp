@@ -1,8 +1,6 @@
 module.exports = {
-    ADMIN: 'AM',
-    DOCTOR:'DC',
-    PATIENTS:'PT',
-    SUPER_ADMIN:'SA'
-   
-  };
-  
+  ADMIN: 'AM',
+  DOCTOR:'DC',
+  PATIENTS:'PT',
+  SUPER_ADMIN:'SA'
+};

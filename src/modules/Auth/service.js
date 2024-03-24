@@ -7,14 +7,17 @@ const {
   Unauthorized,
   Forbidden,
   NoContent,
-} = require("../../utility/errors");
-const { generateOTP } = require("../../utility/common");
-const { SendEmailUtility } = require("../../utility/email");
-const createToken = require("../../utility/createToken");
-const bcrypt = require("bcryptjs");
+} = require('../../utility/errors');
+const { generateOTP } = require('../../utility/common');
+const { SendEmailUtility } = require('../../utility/email');
+const createToken = require('../../utility/createToken');
+const bcrypt = require('bcryptjs');
+
+
+
+
 
 // Admin account register
-
 const registerUser = async (userData) => {
   const { email, password } = userData;
 
@@ -49,6 +52,8 @@ const registerUser = async (userData) => {
 
   return isUser;
 };
+
+
 
 // Sign In User>Brand Manager>
 const signinUser = async (data) => {
@@ -243,19 +248,19 @@ const getUserInfoById = async (userId) => {
   } catch (error) {
     throw new Error(error);
   }
-};
+}
 
 // updateUserByID
 
 const updateUserProfileById = async (id, value) => {
-  const users = await User.findByIdAndUpdate({ _id: id }, value, {
-    new: true,
-  });
-  if (!users) {
-    throw new BadRequest("User Not Found");
-  }
 
-  return users;
+  const users=await User.findByIdAndUpdate({ _id: id},value,{
+    new:true
+  });
+  if(!users){
+    throw new BadRequest("User Not Found");
+  };
+  return users
 };
 
 //get all Users
@@ -267,7 +272,8 @@ const getAllUsers = async () => {
     .select("-password")
     .populate("profilePicture", "url");
   return allUsers;
-};
+}
+
 
 module.exports = {
   registerUser,
@@ -280,5 +286,7 @@ module.exports = {
   removeRefreshToken,
   getUserInfoById,
   updateUserProfileById,
-  getAllUsers,
+  getAllUsers
+  
+
 };

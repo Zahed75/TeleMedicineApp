@@ -17,7 +17,7 @@ const {
     DOCOTR,
     PATIETN,
     SUPER_ADMIN
-   } = require('../../config/constants');
+   } = require('../../config/constant');
 const roleMiddleware = require('../../middlewares/roleMiddleware');
 
 const authMiddleware = require('../../middlewares/authMiddleware');

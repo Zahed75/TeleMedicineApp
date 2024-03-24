@@ -4,10 +4,10 @@ const router = express.Router();
 const handleValidation = require('../../middlewares/schemaValidation');
 
 const {
- ADMIN,
- DOCOTR,
- PATIETN,
- SUPER_ADMIN
+  ADMIN,
+  DOCTOR,
+  PATIENTS,
+  SUPER_ADMIN
 
 }=require('../../config/constant');
 const authService = require('./service');
@@ -20,7 +20,7 @@ const { asyncHandler } = require('../../utility/common');
 
 const userSignup = async (req, res, next) => {
   try {
-    const user = await authService.registerUser(req.body);
+    const user = await registerUser(req.body);
 
     res.status(201).json({
       email: user.email,
@@ -28,9 +28,14 @@ const userSignup = async (req, res, next) => {
       message: 'OTP is sent to your email. Please Check your email',
     });
   } catch (err) {
-    next(err, req, res);
+    next(err); // Pass error to error handling middleware
   }
 };
+
+
+
+
+
 
 
 //user signin
@@ -149,7 +154,7 @@ const getUserInfoByIdHandler = async (req, res, next) => {
   try {
       const { userId } = req.params;
       const user = await authService.getUserInfoById(userId);
-      res.status(200).json({ user }); // Send user object including profilePicture
+      res.status(200).json({ user });
   } catch (err) {
       next(err, req, res);
   }
@@ -158,23 +163,29 @@ const getUserInfoByIdHandler = async (req, res, next) => {
 //UpdateUserProfileById
 
 
-const updateUserProfileHandler = async (req, res) => {
+const updateUserProfileHandler = async (req, res, next) => {
   try {
-    const { id } = req.params; // Extracting ID from request params directly
-    console.log(id); 
-    const { body } = req;
-   
-
-    const updatedUser = await authService.updateUserProfileById(id, body);
-
-    res.status(200).json({
-      message: 'User profile updated successfully',
-      user: updatedUser,
-    });
+    const { userId } = req.params;
+    const updates = req.body; // Assuming updates are sent in the request body
+    const profilePicture = req.file ? req.file.path : null; // Assuming the profile picture is uploaded as a file
+    
+    const updatedUser = await authService.updateUserProfileById (userId, updates, profilePicture);
+    
+    // Check if the user was updated successfully
+    if (!updatedUser) {
+      return res.status(404).json({ error: "User not found" });
+    }
+    
+    res.status(200).json({ user: updatedUser });
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    // Pass the error to the error handling middleware
+    next(error);
   }
 };
+
+
+
+
 
 
 
@@ -193,8 +204,21 @@ const getAllUsersHandler = async (req, res) => {
 }
 
 
+// delete UserController
 
-router.post('/admin/register',  userSignup);
+const deleteUserHandler=asyncHandler(async (req, res, next) => {
+
+  const {id}=req.params;
+  const Users=await authService.deleteUser(id,req.body);
+  res.status(200).json({
+    message:"Delete User Successfully",
+    Users
+  })
+})
+
+
+router.post('/admin/register', handleValidation(adminValidate), userSignup);
+
 router.post('/user/signin', userSignin);
 router.get('/logout', logoutHandler);
 router.get("/getAllUsers",getAllUsersHandler);
@@ -203,8 +227,7 @@ router.post('/otp/resend', resendOTP);
 router.post('/otp/expire', expireOTP);
 router.get('/refresh', refreshTokenHandler);
 router.get('/:userId',getUserInfoByIdHandler);
-router.post('/updateUserProfiler/:id',updateUserProfileHandler);
-
-
+router.post('/updateUserProfiler/:userId',updateUserProfileHandler);
+router.delete('/:id',deleteUserHandler);
 
 module.exports = router;

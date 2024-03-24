@@ -9,16 +9,14 @@ const {
   NoContent,
 } = require('../../utility/errors');
 const { generateOTP } = require('../../utility/common');
-const  SendEmailUtility  = require('../../utility/email');
+const { SendEmailUtility } = require('../../utility/email');
 const createToken = require('../../utility/createToken');
 const bcrypt = require('bcryptjs');
-// const handleValidation = require('../../middlewares/schemaValidation');;
 
 
 
 
 // Admin account register
-
 const registerUser = async (userData) => {
   const { email, password } = userData;
 
@@ -45,11 +43,7 @@ const registerUser = async (userData) => {
       isVerified: newUSer.isVerified,
       isActive: newUSer.isActive,
       role: newUSer.role,
-      profilePicture: newUSer.profilePicture,
-      dob:newUSer.dob,
-      gender: newUSer.gender,
-      nidNo: newUSer.nidNo,
-
+      profilePicture: newUSer.profilePicture
     };
   }
 
@@ -285,17 +279,32 @@ const getUserInfoById = async (userId) => {
   }
 }
 
+
+
 // updateUserByID
 
-const updateUserProfileById = async (id, value) => {
+const updateUserProfileById = async (userId, updates, profilePicture) => {
+  try {
+    // If there's a new profile picture, upload it to Cloudinary
+    if (profilePicture) {
+      console.log("Uploading profile picture to Cloudinary...");
+      const uploadedImage = await cloudinary.uploader.upload(profilePicture);
+      console.log("Uploaded image details:", uploadedImage);
+      updates.profilePicture = uploadedImage.secure_url;
+    }
+    
+    // Update the user document with the new profile picture
+    const updatedUser = await User.findByIdAndUpdate(userId, updates, { new: true });
 
-  const users=await User.findByIdAndUpdate({ _id: id},value,{
-    new:true
-  });
-  if(!users){
-    throw new BadRequest("User Not Found");
-  };
-  return users
+    if (!updatedUser) {
+      throw new Error("User not found");
+    }
+
+    return updatedUser;
+  } catch (error) {
+    console.error("Error updating user profile:", error);
+    throw new Error("Failed to update user profile");
+  }
 };
 
 
@@ -312,6 +321,18 @@ const getAllUsers = async () => {
 }
 
 
+
+
+// delete User
+
+const deleteUser=async (id) => {
+  const users=User.findByIdAndDelete({_id:id});
+  if(!users){
+    throw new BadRequest("Can't Delete User")
+  }
+  return users;
+}
+
 module.exports = {
   registerUser,
   signinUser,
@@ -323,7 +344,8 @@ module.exports = {
   removeRefreshToken,
   getUserInfoById,
   updateUserProfileById,
-  getAllUsers
+  getAllUsers,
+  deleteUser
   
 
 };

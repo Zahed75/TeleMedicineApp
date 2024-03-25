@@ -57,11 +57,6 @@ const UserSchema=new mongoose.Schema({
       },
       role: {
         type: String,
-        //  BU -> Basic User
-        // VIP -> CELERITY VIP
-        // CL -> CHRUCH_LEADER
-        // CP -> CHURCH_PAGE
-        //SA -> Super Admin
         enum: ['AM', 'DC', 'PT','SA'],
         require: [true, 'Role must be selected'],
       },

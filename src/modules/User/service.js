@@ -159,6 +159,19 @@ const resendResetPasswordEmail = async (managerId) => {
 
 
 
+const searchDoctorsByNames = async (userName) => {
+  try {
+    const doctors = await User.find({
+      userName: { $in: userName },
+      role: DOCTOR,
+    });
+    return doctors;
+  } catch (error) {
+    throw error;
+  }
+};
+
+
 
 
 module.exports = {
@@ -171,7 +184,5 @@ module.exports = {
   verifyChangedEmail,
   updatePassword,
   resendResetPasswordEmail,
-
-
-
+  searchDoctorsByNames,
 };

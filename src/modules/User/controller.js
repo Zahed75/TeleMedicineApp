@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const { searchDoctorsByNames } = require("./service");
-
+const {getUsers}= require('./service')
 
 
 const searchByDoctorName = async (req, res) => {
@@ -17,6 +17,29 @@ const searchByDoctorName = async (req, res) => {
   }
 };
 
+
+const getAllUser= async(req,res) =>{
+
+  try{
+    const allUser = await getUsers(
+      req.query.limit,
+      req.query.skip
+    )
+    if(!allUser){
+      res.status(401).json({message:"User not found"})
+    } 
+    res.status(200).json(allUser)
+
+  }
+  catch (error) {
+    console.error("Error getting User", error);
+    res.status(500).json({ success: false, error: "Internal server error" });
+  }
+
+  
+}
+
 router.get("/search", searchByDoctorName);
+router.get("/getAllUser", getAllUser);
 
 module.exports = router;

@@ -9,11 +9,13 @@ const authRoute = require("../modules/Auth/controller.js");
 const viewTestresultroute = require("../modules/viewTestResult/controller.js");
 const medicationRoute = require("../modules/MedicationRecord/controller");
 const scheduleRoute = require("../modules/Schedule/controller");
+const User = require("../modules/User/controller.js")
 
 // Root End Point
 router.use("/auth", authVerifyMiddleware, authRoute);
 router.use("/viewTestresult", viewTestresultroute);
 router.use("/medication", medicationRoute);
 router.use("/schedule", scheduleRoute);
+router.use("/user",User);
 
 module.exports = router;

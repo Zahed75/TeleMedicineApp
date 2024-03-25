@@ -1,18 +1,18 @@
 const jwt = require('jsonwebtoken');
 
-const User = require('./model');
+const UserModel = require('./model');
 
 const {
   sendSetPasswordEmail,
   setPasswordEmailOutlet,
 } = require('../../utility/email');
 const { NotFound, BadRequest, Forbidden } = require('../../utility/errors');
-const { BASIC_USER,
-CELEBRITY_VIP,
-CHRUCH_LEADER,
-CHRUCH_PAGE,
-SUPER_ADMIN,
- } = require('../../config/constant');
+// const { BASIC_USER,
+// CELEBRITY_VIP,
+// CHRUCH_LEADER,
+// CHRUCH_PAGE,
+// SUPER_ADMIN,
+//  } = require('../../config/constant');
 const { generateOTP } = require('../../utility/common');
 const { SendEmailUtility } = require('../../utility/email');
 const { all } = require('axios');
@@ -55,7 +55,12 @@ const updateUser = async (userId, updatedValue) => {
 
 const deleteUserById = (userId) => {};
 
-const getUsers = (limit, skip) => {};
+const getUsers = (
+  limit,
+  skip
+) => {
+  return UserModel.find().limit(limit).skip(skip);
+};
 
 const getUserById = async (id) => {
   const user = await User.findById({ _id: id });

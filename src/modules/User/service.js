@@ -55,11 +55,8 @@ const updateUser = async (userId, updatedValue) => {
 
 const deleteUserById = (userId) => {};
 
-const getUsers = (
-  limit,
-  skip
-) => {
-  return UserModel.find().limit(limit).skip(skip);
+const getUsers = () => {
+  return UserModel.find();
 };
 
 const getUserById = async (id) => {

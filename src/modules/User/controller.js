@@ -18,13 +18,10 @@ const searchByDoctorName = async (req, res) => {
 };
 
 
-const getAllUser= async(req,res) =>{
+const getAllUser = async(req,res) =>{
 
   try{
-    const allUser = await getUsers(
-      req.query.limit,
-      req.query.skip
-    )
+    const allUser = await getUsers()
     if(!allUser){
       res.status(401).json({message:"User not found"})
     } 

@@ -1,11 +1,7 @@
 const mongoose = require('mongoose');
 
 const documentSchema = new mongoose.Schema({
-    userId:{
-        type:mongoose.Schema.Types.ObjectId,
-        required:true,
-        ref:'user'
-    },
+    
   docName: {
     type: String,
     required: true
@@ -14,7 +10,7 @@ const documentSchema = new mongoose.Schema({
     type: Date,
     default: Date.now
   },
-  docUpload: {
+  FileLink: {
     type: String,
     required: true
   }

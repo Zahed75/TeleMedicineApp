@@ -1,0 +1,51 @@
+version: '3.9'
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5050:5050"
+    container_name: tele-server
+    networks:
+      - tele-network
+    volumes:
+      - ./:/app
+    environment:
+      NODE_ENV: production
+      MONGODB_URI: mongodb://syscoadmin:E7Dw~e5NKh4Ly's@mongo:27017/teleProd?authSource=admin
+    depends_on:
+      - mongo
+  mongo:
+    container_name: basilia-db
+    image: mongo
+    ports:
+      - "27177:27017"
+    networks:
+      - tele-network
+    volumes:
+      - mongoData:/data/db
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: teleadmin
+      MONGO_INITDB_ROOT_PASSWORD: E7Dw~e5NKh4Ly's
+      MONGO_INITDB_DATABASE: teleProd
+  mongo-express:
+    image: mongo-express
+    restart: always
+    ports:
+      - "8081:8081"
+    networks:
+      - tele-network
+    environment:
+      ME_CONFIG_BASICAUTH_USERNAME: teledbadmin
+      ME_CONFIG_BASICAUTH_PASSWORD: VNY*\:u@n{x7<?2
+      ME_CONFIG_MONGODB_ADMINUSERNAME: sysco
+      ME_CONFIG_MONGODB_ADMINPASSWORD: E7Dw~e5NKh4Ly's
+      ME_CONFIG_MONGODB_URL: mongodb://teleadmin:E7Dw~e5NKh4Ly's@mongo:27017
+    depends_on:
+      - mongo
+networks:
+  tele-network:
+volumes:
+  mongoData:

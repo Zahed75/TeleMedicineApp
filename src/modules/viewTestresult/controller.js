@@ -1,6 +1,9 @@
-const router = require('express').Router(); // Using Express Router directly
+// Using Express Router directly
 const TestResultService = require('./service');
 const Joi = require('joi'); // For validation
+
+const express = require("express");
+const router = express.Router();
 
 const addTestResultSchema = Joi.object({
   userId: Joi.string(),

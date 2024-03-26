@@ -6,9 +6,9 @@ const authVerifyMiddleware = require("../middlewares/authMiddleware.js");
 
 // Routes
 const authRoute = require("../modules/Auth/controller.js");
-const viewTestresultroute = require("../modules/viewTestResult/controller.js");
-const medicationRoute = require("../modules/MedicationRecord/controller");
-const scheduleRoute = require("../modules/Schedule/controller");
+const viewTestresultroute = require("../modules/viewTestresult/controller.js");
+const medicationRoute = require("../modules/MedicationRecord/controller.js");
+const scheduleRoute = require("../modules/Schedule/controller.js");
 const User = require("../modules/User/controller.js")
 const UploadFile = require("../modules/UploadDocument/controller.js")
 

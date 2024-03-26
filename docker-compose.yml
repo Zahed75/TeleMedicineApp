@@ -9,7 +9,7 @@ services:
       - "5050:5050"
     environment:
       NODE_ENV: production
-      MONGODB_URI: "mongodb://syscoadmin:E7Dw~e5NKh4Ly's@mongo:27017/TeleProd?authSource=admin"
+      MONGODB_URI: "mongodb://teleadmin:E7Dw~e5NKh4Ly's@mongo:27017/TeleProd?authSource=admin"
     volumes:
       - .:/usr/src/app
     depends_on:
@@ -34,8 +34,8 @@ services:
       ME_CONFIG_MONGODB_ADMINUSERNAME: teleadmin
       ME_CONFIG_MONGODB_ADMINPASSWORD: E7Dw~e5NKh4Ly's
       ME_CONFIG_MONGODB_SERVER: mongo
-      ME_CONFIG_BASICAUTH_USERNAME: admin
-      ME_CONFIG_BASICAUTH_PASSWORD: password
+      ME_CONFIG_BASICAUTH_USERNAME: teleadmin
+      ME_CONFIG_BASICAUTH_PASSWORD: E7Dw~e5NKh4Ly's
     depends_on:
       - mongo
 volumes:

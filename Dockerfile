@@ -1,11 +1,20 @@
+# Use the official Node.js image as base
 FROM node:alpine
+
 # Create app directory
 WORKDIR /usr/src/app
-# Install app dependencies
+
+# Copy package.json and package-lock.json
 COPY package*.json ./
-RUN npm ci
-# Copy app source code
+
+# Install app dependencies
+RUN npm install --production
+
+# Bundle app source
 COPY . .
-#Expose port and start application
+
+# Expose port 5050
 EXPOSE 5050
-CMD [ "npm", "run", "dev" ]
+
+# Command to run the application
+CMD [ "npm", "start" ]

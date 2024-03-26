@@ -17,10 +17,10 @@ services:
     depends_on:
       - mongo
   mongo:
-    container_name: basilia-db
+    container_name: tele-db
     image: mongo
     ports:
-      - "27177:27017"
+      - "27178:27018"
     networks:
       - tele-network
     volumes:
@@ -28,7 +28,7 @@ services:
     restart: always
     environment:
       MONGO_INITDB_ROOT_USERNAME: teleadmin
-      MONGO_INITDB_ROOT_PASSWORD: E7Dw~e5NKh4Ly's
+      MONGO_INITDB_ROOT_PASSWORD: E7Dw~e5NKh4Lwewed's
       MONGO_INITDB_DATABASE: teleProd
   mongo-express:
     image: mongo-express

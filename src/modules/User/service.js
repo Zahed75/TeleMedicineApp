@@ -1,10 +1,13 @@
 const UserModel = require("./model");
 
-const getUsers = (limit, skip) => {
-  return UserModel.find().limit(limit).skip(skip);
+const getUsers = () => {
+  return UserModel.find();
+  const getUsers = (limit, skip) => {
+    return UserModel.find().limit(limit).skip(skip);
+  };
 };
 
-const searchDoctorsByNames = async (userName) => { 
+const searchDoctorsByNames = async (userName) => {
   try {
     const doctors = await UserModel.find({
       userName: { $in: userName },
@@ -28,7 +31,6 @@ const searchDoctorsByNames = async (userName) => {
 //     throw error;
 // }
 // }
-
 
 module.exports = {
   getUsers,

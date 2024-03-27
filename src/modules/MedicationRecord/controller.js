@@ -18,6 +18,7 @@ const createMedicationRecord = async (req, res) => {
   }
 };
 
+
 const fetchAllMedicationRecords = async (req, res) => {
   try {
     const medications = await getAllMedicationRecords();

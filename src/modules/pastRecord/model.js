@@ -6,8 +6,6 @@ PastRecord : {
 },
 Date: {
     type: String
-   
-
   },
 
 })

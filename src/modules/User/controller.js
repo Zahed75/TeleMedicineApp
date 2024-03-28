@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const { searchDoctorsByNames } = require("./service");
-const { getUsers,getUserInfoById } = require("./service");
+const { getUsers,getUserInfoById,updateUserInfoById } = require("./service");
 
 const searchByDoctorName = async (req, res) => {
   try {
@@ -42,8 +42,27 @@ const getUserInfoByIdHandler = async (req, res, next) => {
   }
 }
 
+const updateById = async (req, res, next)=>{
+
+try{
+    const user = await updateUserInfoById(
+      req.params.testResultId,
+      req.body);
+      if (!user) {
+        return res.status(400).json({ message: "user info for updating is missing" });
+          }
+    res.status(200).json({ user });
+}
+catch (err) {
+  next(err, req, res);
+}
+
+}
+
+
+
 router.get("/search", searchByDoctorName);
 router.get("/getAllUser", getAllUser);
 router.get("/getuserInfoById",getUserInfoByIdHandler)
-
+router.put("/updateById/:testResultId",updateById)
 module.exports = router;

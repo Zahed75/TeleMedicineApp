@@ -28,6 +28,24 @@ const getUserInfoById = async (userId) => {
     throw new Error(error);
   }
 }
+const updateUserInfoById = async (testResultId, updatedValue) => {
+  try {
+    const updatedTestResult = await UserModel.findByIdAndUpdate(
+      testResultId,
+     updatedValue,
+    { new: true }
+     );
+     if (!updatedTestResult) {
+      throw new Error('Test Result not found');
+    }
+  
+    return updatedTestResult;
+  } catch (error) {
+    throw new Error(error);
+  }
+}
+
+
 
 // const searchDoctorsByNames = async (req, res) => {
 //   const { userName } = req.query;
@@ -45,5 +63,6 @@ const getUserInfoById = async (userId) => {
 module.exports = {
   getUsers,
   searchDoctorsByNames,
-  getUserInfoById
+  getUserInfoById,
+  updateUserInfoById
 };

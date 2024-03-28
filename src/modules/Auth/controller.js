@@ -73,7 +73,7 @@ const logoutHandler = async (req, res, next) => {
       res.clearCookie('jwt', { httpOnly: true });
       res.clearCookie('currentUserRole', { httpOnly: true });
       return res.sendStatus(204);
-    }
+    }                                                                                                               
     await authService.removeRefreshToken(isUser.refreshToken);
     res.clearCookie('jwt', { httpOnly: true });
     res.clearCookie('currentUserRole', { httpOnly: true });
@@ -83,6 +83,7 @@ const logoutHandler = async (req, res, next) => {
     next(err, req, res);
   }
 };
+
 
 
 // Verify OTP

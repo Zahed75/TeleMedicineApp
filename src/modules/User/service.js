@@ -19,6 +19,16 @@ const searchDoctorsByNames = async (userName) => {
   }
 };
 
+const getUserInfoById = async (userId) => {
+  try {
+    const user = await UserModel.findById({ _id: userId });
+
+    return user;
+  } catch (error) {
+    throw new Error(error);
+  }
+}
+
 // const searchDoctorsByNames = async (req, res) => {
 //   const { userName } = req.query;
 //   try {
@@ -35,4 +45,5 @@ const searchDoctorsByNames = async (userName) => {
 module.exports = {
   getUsers,
   searchDoctorsByNames,
+  getUserInfoById
 };

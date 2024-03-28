@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const { searchDoctorsByNames } = require("./service");
-const { getUsers } = require("./service");
+const { getUsers,getUserInfoById } = require("./service");
 
 const searchByDoctorName = async (req, res) => {
   try {
@@ -29,7 +29,21 @@ const getAllUser = async (req, res) => {
   }
 };
 
+const getUserInfoByIdHandler = async (req, res, next) => {
+  try {
+      const userId = req.headers['user-id'];
+      if (!userId) {
+        return res.status(400).json({ message: "userId is missing in header" });
+      }
+      const user = await getUserInfoById(userId);
+      res.status(200).json({ user });
+  } catch (err) {
+      next(err, req, res);
+  }
+}
+
 router.get("/search", searchByDoctorName);
 router.get("/getAllUser", getAllUser);
+router.get("/getuserInfoById",getUserInfoByIdHandler)
 
 module.exports = router;

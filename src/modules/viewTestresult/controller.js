@@ -80,7 +80,7 @@ router.post('/addtestresult', addTestResult);
 router.put('/testResultId/:id', updateTestResult);
 router.get('/alltestresults', getAllTestResults);
 router.get('/getTestResultById/:id', getTestResultById);
-router.delete('/testResultId/:id', deleteTestResultById);
+router.put('/testResultId/:id', deleteTestResultById);
 
 module.exports = router;
 

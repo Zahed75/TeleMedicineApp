@@ -21,7 +21,7 @@ const documentSchema = new mongoose.Schema({
     type : String,
     required: [true, "doctor id required"]
   }
-});
+},{versionKey:false});
 
 const Document = mongoose.model("Document", documentSchema);
 

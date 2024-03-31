@@ -3,13 +3,16 @@ const Document = require('./model');
 const uploadDocService = async(req,res)=>{
   try{
    
-    const { docName, date,FileLink} = req.body;
+    const { docName, date,FileLink,paitentId,doctorId} = req.body;
     
     
     const newDocument = new Document({
       docName: docName,
       date: date,
-      FileLink: FileLink // Assuming you're storing the file path in the database
+      FileLink: FileLink, // Assuming you're storing the file path in the database
+      paitentId : paitentId,
+      doctorId : doctorId
+    
     });
     
     const savedDocument = await newDocument.save();

@@ -20,6 +20,10 @@ const UserSchema=new mongoose.Schema({
         type:String,
         max:[10,'Your date of birth must be at least 10 characters']
       },
+      speacialist:{
+        type : String,
+        default : true
+      },
 
       phoneNumber:{
         type:String,
@@ -68,7 +72,7 @@ const UserSchema=new mongoose.Schema({
       refreshToken: [String],
 
       
-},{ timestamps: true }
+},{ timestamps: true },{versionKey:false}
 );
 
 

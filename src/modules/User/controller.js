@@ -31,11 +31,11 @@ const getAllUser = async (req, res) => {
 
 const getUserInfoByIdHandler = async (req, res, next) => {
   try {
-      const userId = req.headers['user-id'];
-      if (!userId) {
+      const iddd = req.params.iddd;
+      if (!iddd) {
         return res.status(400).json({ message: "userId is missing in header" });
       }
-      const user = await getUserInfoById(userId);
+      const user = await getUserInfoById(iddd);
       res.status(200).json({ user });
   } catch (err) {
       next(err, req, res);
@@ -63,6 +63,6 @@ catch (err) {
 
 router.get("/search", searchByDoctorName);
 router.get("/getAllUser", getAllUser);
-router.get("/getuserInfoById",getUserInfoByIdHandler)
+router.get("/getuserInfoById/:iddd",getUserInfoByIdHandler)
 router.put("/updateById/:testResultId",updateById)
 module.exports = router;

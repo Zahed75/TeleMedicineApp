@@ -15,6 +15,14 @@ const ScheduleSchema = new mongoose.Schema({
     type: String,
     required: [true, "Date is required"],
   },
+  doctorId:{
+    type : String,
+    required: [true, "doctor id required"]
+  },
+  paitentId:{
+    type : String,
+    required: [true, "Paitent id is required"]
+  },
   time: {
     type: String,
     required: [true, "Time is required"],

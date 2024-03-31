@@ -2,17 +2,15 @@ const UserModel = require("./model");
 
 const getUsers = () => {
   return UserModel.find();
-  const getUsers = (limit, skip) => {
-    return UserModel.find().limit(limit).skip(skip);
   };
-};
+
 
 const searchDoctorsByNames = async (userName) => {
   try {
     const doctors = await UserModel.find({
       userName: { $in: userName },
       role: "DC",
-    }).select({ userName: 1, email: 1, role: 1 });
+    }).select({ userName: 1, email: 1, role: 1 ,speacialist:1});
     return doctors;
   } catch (error) {
     throw error;
@@ -21,7 +19,8 @@ const searchDoctorsByNames = async (userName) => {
 
 const getUserInfoById = async (userId) => {
   try {
-    const user = await UserModel.findById({ _id: userId });
+
+    const user = await UserModel.findById( userId );
 
     return user;
   } catch (error) {

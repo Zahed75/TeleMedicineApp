@@ -7,6 +7,8 @@ const {
   getScheduleById,
   updateScheduleById,
   deleteScheduleById,
+  getPaitentScheduleById,
+  getDoctorScheduleById
 } = require("./service");
 
 const createNewSchedule = async (req, res) => {
@@ -88,10 +90,49 @@ const deleteSchedule = async (req, res) => {
   }
 };
 
+
+const fetchPaitentScheduleById = async (req, res) => {
+  try {
+    const paitentId = req.params.paitentId;
+    const schedule = await getPaitentScheduleById(paitentId);
+
+    if (!schedule) {
+      return res
+        .status(404)
+        .json({ success: false, error: "Schedule not found" });
+    }
+
+    res.status(200).json({ success: true, data: schedule });
+  } catch (error) {
+    console.error("Error getting schedule by id:", error);
+    res.status(500).json({ success: false, error: "Internal server error" });
+  }
+};
+
+
+const fetchDoctorScheduleById = async (req, res) => {
+  try {
+    const doctorId = req.params.doctorId;
+    const schedule = await getDoctorScheduleById(doctorId);
+
+    if (!schedule) {
+      return res
+        .status(404)
+        .json({ success: false, error: "Schedule not found" });
+    }
+
+    res.status(200).json({ success: true, data: schedule });
+  } catch (error) {
+    console.error("Error getting schedule by id:", error);
+    res.status(500).json({ success: false, error: "Internal server error" });
+  }
+};
+
 router.post("/createSchedule", createNewSchedule);
 router.get("/fetchAllSchedules", fetchAllSchedules);
 router.get("/fetchScheduleById/:id", fetchScheduleById);
 router.put("/updateSchedule/:id", updateSchedule);
 router.put("/deleteSchedule/:id", deleteSchedule);
-
+router.get("/fetchPaitentScheduleById/:paitentId", fetchPaitentScheduleById);
+router.get("/fetchDoctorScheduleById/:doctorId", fetchDoctorScheduleById);
 module.exports = router;

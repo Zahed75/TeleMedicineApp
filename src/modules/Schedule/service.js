@@ -26,6 +26,24 @@ const getScheduleById = async (id) => {
     throw error;
   }
 };
+const getPaitentScheduleById = async (id) => {
+  try {
+    const schedule = await Schedule.find({paitentId:id});
+    return schedule;
+  } catch (error) {
+    throw error;
+  }
+};
+
+const getDoctorScheduleById = async (id) => {
+  try {
+    const schedule = await Schedule.find({doctorId:id});
+    return schedule;
+  } catch (error) {
+    throw error;
+  }
+};
+
 
 const updateScheduleById = async (id, data) => {
   try {
@@ -57,4 +75,6 @@ module.exports = {
   getScheduleById,
   updateScheduleById,
   deleteScheduleById,
+  getPaitentScheduleById,
+  getDoctorScheduleById
 };

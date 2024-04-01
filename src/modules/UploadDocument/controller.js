@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { uploadDocService } = require("./service");
+const { uploadDocService,getPaitentUploadById} = require("./service");
 const multer = require("multer");
 
 const uploadDoc = async (req, res) => {
@@ -42,5 +42,24 @@ router.post("/upload", upload.single("file"), async (req, res, next) => {
   }
 });
 
+const fetchPaitentUploadsById = async (req, res) => {
+  try {
+    const paitentId = req.params.paitentId;
+    const schedule = await getPaitentUploadById(paitentId);
+
+    if (!schedule) {
+      return res
+        .status(404)
+        .json({ success: false, error: "Schedule not found" });
+    }
+
+    res.status(200).json({ success: true, data: schedule });
+  } catch (error) {
+    console.error("Error getting schedule by id:", error);
+    res.status(500).json({ success: false, error: "Internal server error" });
+  }
+};
+
 router.post("/uploadinfo", uploadDoc);
+router.get("/fetchPaitentUploadsById/:paitentId", fetchPaitentUploadsById);
 module.exports = router;

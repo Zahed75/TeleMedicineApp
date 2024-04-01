@@ -26,4 +26,19 @@ const uploadDocService = async(req,res)=>{
   }
 
 }
-module.exports = {uploadDocService}
+const getPaitentUploadById = async (id) => {
+  try {
+    const schedule = await Document.find({paitentId:id});
+    return schedule;
+  } catch (error) {
+    throw error;
+  }
+};
+
+
+
+
+module.exports = {
+  uploadDocService,
+  getPaitentUploadById
+}

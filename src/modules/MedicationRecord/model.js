@@ -38,6 +38,14 @@ const MedicationSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  doctorId:{
+    type : String,
+    required: [true, "doctor id required"]
+  },
+  paitentId:{
+    type : String,
+    required: [true, "Paitent id is required"]
+  }
 });
 
 module.exports = mongoose.model("MedicationRecord", MedicationSchema);

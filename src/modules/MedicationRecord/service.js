@@ -27,6 +27,7 @@ const getMedicationRecordById = async (id) => {
   }
 };
 
+
 const updateMedicationRecordById = async (id, data) => {
   try {
     const medication = await MedicationRecord.findByIdAndUpdate(id, data, {
@@ -51,10 +52,31 @@ const deleteMedicationRecordById = async (id) => {
   }
 };
 
+const getPaitentMedicationByPaitentId = async (id) => {
+  try {
+    const schedule = await MedicationRecord.find({paitentId:id});
+    return schedule;
+  } catch (error) {
+    throw error;
+  }
+};
+
+const getDoctorMedicationByDoctorId = async (id) => {
+  try {
+    const schedule = await MedicationRecord.find({doctorId:id});
+    return schedule;
+  } catch (error) {
+    throw error;
+  }
+};
+
+
 module.exports = {
   addMedicationRecord,
   getAllMedicationRecords,
   getMedicationRecordById,
   updateMedicationRecordById,
   deleteMedicationRecordById,
+  getPaitentMedicationByPaitentId,
+  getDoctorMedicationByDoctorId
 };

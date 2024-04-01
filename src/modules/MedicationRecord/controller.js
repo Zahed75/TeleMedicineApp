@@ -6,6 +6,8 @@ const {
   getMedicationRecordById,
   updateMedicationRecordById,
   deleteMedicationRecordById,
+  getPaitentMedicationByPaitentId,
+  getDoctorMedicationByDoctorId
 } = require("./service");
 
 const createMedicationRecord = async (req, res) => {
@@ -90,10 +92,50 @@ const removeMedicationRecord = async (req, res) => {
   }
 };
 
+const fetchPaitentMedicationById = async (req, res) => {
+  try {
+    const paitentId = req.params.paitentId;
+    const schedule = await getPaitentMedicationByPaitentId(paitentId);
+
+    if (!schedule) {
+      return res
+        .status(404)
+        .json({ success: false, error: "Schedule not found" });
+    }
+
+    res.status(200).json({ success: true, data: schedule });
+  } catch (error) {
+    console.error("Error getting schedule by id:", error);
+    res.status(500).json({ success: false, error: "Internal server error" });
+  }
+};
+
+const fetchDoctorMedicationById = async (req, res) => {
+  try {
+    const doctorId = req.params.doctorId;
+    const schedule = await getDoctorMedicationByDoctorId(doctorId);
+
+    if (!schedule) {
+      return res
+        .status(404)
+        .json({ success: false, error: "Schedule not found" });
+    }
+
+    res.status(200).json({ success: true, data: schedule });
+  } catch (error) {
+    console.error("Error getting schedule by id:", error);
+    res.status(500).json({ success: false, error: "Internal server error" });
+  }
+};
+
+
+
+
 router.post("/createMedicationRecord", createMedicationRecord);
 router.get("/getAllMedicationRecords", fetchAllMedicationRecords);
 router.get("/getMedicationRecordById/:id", fetchMedicationRecordById);
 router.put("/updateMedicationRecord/:id", updateMedicationRecord);
 router.put("/deleteMedicationRecord/:id", removeMedicationRecord);
-
+router.get("/fetchPaitentMedicationById/:paitentId", fetchPaitentMedicationById);
+router.get("/fetchDoctorMedicationById/:doctorId", fetchDoctorMedicationById);
 module.exports = router;

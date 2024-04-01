@@ -6,8 +6,8 @@ const documentSchema = new mongoose.Schema({
     required: true,
   },
   date: {
-    type: Date,
-    default: Date.now,
+    type: String,
+    require: true
   },
   FileLink: {
     type: String,

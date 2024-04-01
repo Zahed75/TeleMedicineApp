@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+
 const { uploadDocService,getPaitentUploadById} = require("./service");
 const multer = require("multer");
 
@@ -35,12 +36,14 @@ router.post("/upload", upload.single("file"), async (req, res, next) => {
         .status(200)
         .json({ message: "File uploaded successfully", file: uploadedFile });
     } else {
-      res.status(401).json({ message: "File no uploaded" });
+      res.status(401).json({ message: "File not uploaded" });
     }
   } catch (error) {
     next(error);
   }
 });
+
+
 
 const fetchPaitentUploadsById = async (req, res) => {
   try {

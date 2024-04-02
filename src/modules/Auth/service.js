@@ -19,7 +19,7 @@ const SendEmailUtility = require('../../utility/email');
 
 
 const registerUser = async (userData) => {
-  const { email, password,speacialist} = userData;
+  const { email, password,speacialist,address} = userData;
 
   let isUser = await User.findOne({ email }).select(
     'email isVerified isActive role'
@@ -36,6 +36,7 @@ const registerUser = async (userData) => {
     isUser.otp = otp;
     isUser.password = password;
     isUser.speacialist = speacialist
+    isUser.address = address
     await isUser.save();
   } else {
     const newUser = await User.create({ ...userData, otp });
@@ -46,6 +47,7 @@ const registerUser = async (userData) => {
       isActive: newUser.isActive,
       role: newUser.role,
       speacialist : newUser.speacialist,
+      address : newUser.address
 
     };
   }

@@ -77,7 +77,7 @@ const deleteTestResultById = async (req, res, next) => {
 };
 
 router.post('/addtestresult', addTestResult);
-router.put('/testResultId/:id', updateTestResult);
+router.put('/updateTestResult/:testResultId', updateTestResult);
 router.get('/alltestresults', getAllTestResults);
 router.get('/getTestResultById/:id', getTestResultById);
 router.put('/testResultId/:id', deleteTestResultById);

@@ -28,7 +28,7 @@ const uploadDocService = async(req,res)=>{
 }
 const getPaitentUploadById = async (id) => {
   try {
-    const schedule = await Document.find({paitentId:id});
+    const schedule = await Document.find({doctorId:id});
     return schedule;
   } catch (error) {
     throw error;

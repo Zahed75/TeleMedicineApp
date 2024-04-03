@@ -45,10 +45,10 @@ router.post("/upload", upload.single("file"), async (req, res, next) => {
 
 
 
-const fetchPaitentUploadsById = async (req, res) => {
+const fetchDoctorUploadsById = async (req, res) => {
   try {
-    const paitentId = req.params.paitentId;
-    const schedule = await getPaitentUploadById(paitentId);
+    const doctorId = req.params.doctorId;
+    const schedule = await getPaitentUploadById(doctorId);
 
     if (!schedule) {
       return res
@@ -64,5 +64,5 @@ const fetchPaitentUploadsById = async (req, res) => {
 };
 
 router.post("/uploadinfo", uploadDoc);
-router.get("/fetchPaitentUploadsById/:paitentId", fetchPaitentUploadsById);
+router.get("/fetchDoctorUploadsById/:doctorId", fetchDoctorUploadsById);
 module.exports = router;

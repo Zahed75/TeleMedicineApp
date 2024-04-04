@@ -76,11 +76,35 @@ const deleteTestResultById = async (req, res, next) => {
   }
 };
 
+
+const getTestResultByUserId = async (req, res, next) => {
+  try {
+    const testResult = await TestResultService.getTestResultByUserId(req.params.userId);
+    if (!testResult) {
+      return res.status(401).json({ message: "Test result not found" });
+    }
+    res.status(200).json({ message: "Success", testResult });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+
+
+
+
+
+
+
+
+
 router.post('/addtestresult', addTestResult);
 router.put('/updateTestResult/:testResultId', updateTestResult);
 router.get('/alltestresults', getAllTestResults);
 router.get('/getTestResultById/:id', getTestResultById);
 router.put('/testResultId/:id', deleteTestResultById);
+router.get('/getTestResultByUserId/:userId', getTestResultByUserId);
 
 module.exports = router;
 

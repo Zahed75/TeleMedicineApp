@@ -36,10 +36,20 @@ const deleteTestResultById = async (id) => {
   );
 };
 
+const getTestResultByUserId = async (userId) => {
+  try {
+    return await viewTestresultModel.find({ userId: userId }).exec();
+  } catch (error) {
+    throw error;
+  }
+};
+
+
 module.exports = {
   addTestResult,
   updateTestResult,
   getAllTestResults,
   getTestResultById,
   deleteTestResultById,
+  getTestResultByUserId
 };

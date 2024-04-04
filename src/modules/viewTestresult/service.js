@@ -28,12 +28,7 @@ const getTestResultById = async (id) => {
 };
 
 const deleteTestResultById = async (id) => {
-  
-  return await viewTestresultModel.findByIdAndUpdate(
-    id,
-    { isDeleted: true },
-    { new: true }
-  );
+  return await viewTestresultModel.findByIdAndDelete(id);
 };
 
 const getTestResultByUserId = async (userId) => {

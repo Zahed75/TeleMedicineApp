@@ -103,7 +103,7 @@ router.post('/addtestresult', addTestResult);
 router.put('/updateTestResult/:testResultId', updateTestResult);
 router.get('/alltestresults', getAllTestResults);
 router.get('/getTestResultById/:id', getTestResultById);
-router.put('/deleteTestResultById/:id', deleteTestResultById);
+router.delete('/deleteTestResultById/:id', deleteTestResultById);
 router.get('/getTestResultByUserId/:userId', getTestResultByUserId);
 
 module.exports = router;

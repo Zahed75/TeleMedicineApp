@@ -92,13 +92,6 @@ const getTestResultByUserId = async (req, res, next) => {
 
 
 
-
-
-
-
-
-
-
 router.post('/addtestresult', addTestResult);
 router.put('/updateTestResult/:testResultId', updateTestResult);
 router.get('/alltestresults', getAllTestResults);
